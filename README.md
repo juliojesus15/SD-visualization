@@ -1,2 +1,2 @@
 # SD-visualization
-Student Droptout Visualization for PFC
+Student Dropout Visualization for PFC
