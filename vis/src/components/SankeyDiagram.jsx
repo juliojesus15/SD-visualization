@@ -167,13 +167,7 @@ export const SankeyDiagram = () => {
       .attr("x", function (d) { return d.x1 + 6; })
       .attr("text-anchor", "start");
 
-
-
-
   }
-
-
-
 
 
   return (
