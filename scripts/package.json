@@ -15,5 +15,8 @@
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
     "@faker-js/faker": "^7.6.0"
+  },
+  "dependencies": {
+    "papaparse": "^5.4.1"
   }
 }
