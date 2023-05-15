@@ -1,12 +1,16 @@
 // components
-import {BarChart} from "./components/BarChart"
 import { Dashboard } from "./pages/Dashboard"
+
+import { FilterProvider } from './context/FilterProvider';
+
 
 function App() {  
   return (    
-    <div className="">
-      <Dashboard />
-    </div>    
+    <FilterProvider>
+      <div className="">
+        <Dashboard />
+      </div>    
+    </FilterProvider>
   )
 }
 

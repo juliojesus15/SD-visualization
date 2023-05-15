@@ -1,0 +1,42 @@
+id,enrollmentYear,name,lastName,gender,program,semester,dropoutStatus
+31312b86-09b0-4afe-b63b-7c15f8c2ef71,2011-02,Dino,Raynor,male,Industrial,10,false
+e1628900-7fff-45e0-9a66-421b329f6a6c,2012-02,Jennyfer,Stamm,female,Computer Science,7,true
+89c32c0f-76b5-43d2-abb0-c8e1a54421dc,2012-02,Lavon,Orn,female,Industrial,3,false
+df4a906a-4792-49e4-86c5-a445c0f05262,2012-01,Vergie,Hodkiewicz,male,Computer Science,4,false
+7f9695e9-0093-4ea1-b5a4-059a5c89de70,2011-01,Jana,Schamberger,male,Civil,9,false
+2f315a97-7403-423f-a8fd-8162754cb285,2010-01,Robbie,Bashirian,female,Computer Science,4,true
+427580a2-4a16-4108-b56d-53738aede3cc,2010-01,Augustine,Ward,male,Computer Science,3,true
+315a76ab-a5d6-41f2-a1fd-df9a7088ca20,2011-01,Luella,Torphy,female,Civil,10,false
+2933804f-af3c-48ba-b024-000c9b809372,2012-01,Deven,Armstrong,male,Computer Science,10,false
+81c5e323-f3c3-46e6-8f96-ef883f852b6c,2011-01,Margarete,Kertzmann,male,Industrial,3,true
+48da9b53-c47a-4f0b-ab77-d8dcfc40cbb3,2012-01,Lia,Ziemann,female,Industrial,7,true
+5d29f5e3-f32d-4f4d-8fa5-481ea62d646e,2012-02,Amara,Legros,female,Computer Science,3,false
+a3e425eb-98be-4e11-89b3-5c268f4ec238,2011-01,Gabriella,Sawayn,male,Industrial,7,false
+b82db837-228c-4848-9fc1-2b68d48e155c,2012-01,Dangelo,Frami,female,Computer Science,7,false
+73b651ab-21de-4929-9439-c8149178d608,2011-01,Celine,Spinka,male,Civil,10,false
+296f3196-3ac3-44ba-aa4a-9bf752b0f0c4,2011-02,Janis,Abbott,male,Civil,2,true
+12ce3c72-efa2-468f-abee-ecbae581ccb4,2010-01,Loma,Lockman,female,Industrial,7,true
+c01387c5-5694-484c-a6e8-c4772f678337,2012-02,Thalia,Marvin,male,Industrial,2,true
+8bfd853b-3960-4a17-a834-3dd2e3723bce,2012-02,Brooke,Tromp,female,Civil,7,true
+de4f8c88-cad9-46e7-9cc3-f0266c549ceb,2012-02,Joanie,Gibson,female,Industrial,6,false
+id,enrollmentYear,name,lastName,gender,program,semester,dropoutStatus
+bdbccd26-a210-450d-95ea-c8e57b506d81,2010-01,Nellie,Cartwright,male,Computer Science,1,true
+29b3540f-ef1e-40ea-b266-1dff0685b910,2011-01,Brenda,Runolfsson,female,Computer Science,6,false
+d4fd8801-69ed-4415-9e3b-26f31d16298f,2012-01,Elbert,Feeney,male,Computer Science,3,true
+f3544475-aba0-40b0-bb79-11c537d171ab,2010-01,Hailie,Powlowski,female,Computer Science,6,false
+77871d66-aaa6-4dc0-b345-25fd821f9e8c,2010-01,Hadley,Vandervort,male,Industrial,9,false
+0cfa0a0b-442c-4e9c-ac48-21b42cab014b,2011-01,Velda,Klein,female,Civil,9,true
+d16af962-6447-4715-8677-70ca606544d6,2010-02,Jensen,Bashirian,female,Civil,9,true
+4e655572-4fee-4826-abe2-4c6444679c51,2012-02,Colby,Schmeler,female,Industrial,3,true
+dbd53f23-dda0-46c9-aae9-5d378848d81d,2011-01,Ashlee,Jones,male,Computer Science,6,false
+d990f959-85b8-4ccf-801e-f8e39cb02dcf,2012-02,Donnell,Kshlerin,male,Computer Science,8,true
+e83086d1-be98-45b5-a79a-23de0c292c55,2011-02,Odie,Thiel,female,Industrial,5,false
+86a07b93-d05e-48aa-be17-a5d796dcc240,2012-01,Columbus,Kozey,male,Computer Science,4,false
+bbcd4731-980a-45ec-b51a-bce9b4292bee,2010-02,Sydnee,Gutmann,male,Civil,5,false
+7411c7ce-67ed-4c03-b0b3-7dc47d6595e7,2011-01,Robyn,Stanton,female,Computer Science,6,true
+2490449e-14f6-4dfd-810f-0360f8de48d8,2010-01,Carmen,Toy,female,Computer Science,3,true
+d52af6f7-83ca-45e0-8947-94ca610b6603,2011-01,Jensen,Gutmann,female,Industrial,3,false
+346aeed9-3fc9-484d-8d47-71d2403be483,2011-01,Jeffery,Runolfsson,female,Industrial,4,true
+f5f8c544-f44e-4f9c-ad6a-141bcc8b96c7,2010-01,Lacy,Cartwright,female,Computer Science,10,false
+fb767f57-e35f-4c32-940b-84822f5a1c35,2011-01,Callie,Gibson,female,Civil,3,true
+81e3b9d1-ca29-4410-a756-018565cfe8bf,2011-02,Gisselle,Keebler,male,Industrial,9,true

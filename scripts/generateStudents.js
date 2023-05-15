@@ -3,7 +3,17 @@ import { appendFileSync } from "fs";
 
 const STUDENTS = [];
 const HISTORY = [];
-const PROGRAMS = [ 'Computer Science', 'Civil', 'Industrial' ];
+const PROGRAMS = [ 'Computer Science', 'Civil', 'Industrial' ];''
+const ENROLLMENT = ['2010-01', '2010-02', '2011-01', '2011-02', '2012-01', '2012-02']
+
+const SUB_ENROLLMENT = {
+  '2010-01': ['2010-01', '2010-02', '2011-01', '2011-02', '2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02' ], 
+  '2010-02': ['2010-02', '2011-01', '2011-02', '2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01' ], 
+  '2011-01': ['2011-01', '2011-02', '2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02' ], 
+  '2011-02': ['2011-02', '2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01' ], 
+  '2012-01': ['2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02' ], 
+  '2012-02': ['2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02', '2017-01' ]
+}
 
 const saveAsCSV = (data, filename) => {
   // Header
@@ -27,7 +37,7 @@ const createRandomStudent = () => {
 
   return {
     id: faker.datatype.uuid(),
-    year: faker.datatype.number({ min:1, max:3 }),
+    enrollmentYear: ENROLLMENT[ faker.datatype.number({ min:0, max:5 }) ],
     name: faker.name.firstName(),
     lastName: faker.name.lastName(),
     gender: faker.name.sex(),
@@ -37,11 +47,11 @@ const createRandomStudent = () => {
   };
 }
 
-Array.from({ length: 2 }).forEach(() => {
+Array.from({ length: 100 }).forEach(() => {
   STUDENTS.push(createRandomStudent());
 });
 
-STUDENTS.forEach( ({id, semester, dropoutStatus}) => {
+STUDENTS.forEach( ({id, semester, dropoutStatus, enrollmentYear }) => {
 
   var numComplement = !dropoutStatus 
     ? 10 - semester
@@ -58,13 +68,15 @@ STUDENTS.forEach( ({id, semester, dropoutStatus}) => {
   if( dropoutStatus ) fullSemester.push(0)
   
   fullSemester.forEach( (num, index) => {
+    const enrollmentArray = SUB_ENROLLMENT[enrollmentYear]
     HISTORY.push({
-      id: index + 1,
+      id: enrollmentArray[index],
       studentId: id,
-      semester: num
+      semester: num 
     })
   }) 
 })
 
-saveAsCSV(STUDENTS, "./students.csv")
-saveAsCSV(HISTORY, "./semesters.csv")
+console.log(STUDENTS)
+//saveAsCSV(STUDENTS, "./students.csv")
+//saveAsCSV(HISTORY, "./semesters.csv")
