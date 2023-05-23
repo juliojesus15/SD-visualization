@@ -9,12 +9,12 @@ export const FiltersBar = () => {
   const filterTimes = timelapse.begin && times.filter( ( _, key) => key >timelapse.begin )
 
   return (
-    <section className="flex gap-10 p-3">
+    <section className="flex gap-10 p-2 border-b mb-4">
       {
-        timelapse.begin && <pre> { timelapse.begin }</pre>
+        //timelapse.begin && <pre> { timelapse.begin }</pre>
       }
       {
-        timelapse.end && <pre> { timelapse.end }</pre>
+        //timelapse.end && <pre> { timelapse.end }</pre>
       }
       
       <div className='flex gap-3 font-roboto text-xs text-gray-600'>

@@ -9,7 +9,7 @@
 @tailwind utilities;
 
 @layer componets {
-  .timelapse__tag { @apply font-roboto font-medium text-xs }
+  .timelapse__tag { @apply font-roboto font-semibold text-xs }
 }
 
 @layer utilities {
@@ -27,6 +27,7 @@
   .link {
     fill: none;
     stroke: #b5b5b591;
+    cursor: pointer;
   }
 
   .link:hover {
@@ -45,7 +46,31 @@
     outline-offset: 4px;
     margin-top: 5px;
     margin-left: 5px;
+  }
 
+  .links__link--repeat {
+    fill: none;
+    stroke: #efd64691;
+    cursor: pointer;
+  }
+  
+  .links__link--success {
+    fill: none;
+    stroke: #7b85e465;
+    cursor: pointer;
+
+  }
+  
+  .links__link--dropout {
+    fill: none;
+    stroke: #f8424291;
+    cursor: pointer;
+  }
+
+  .links__link--student {
+    fill: none;
+    stroke: #92d44f91;
+    cursor: pointer;
   }
 
 }
