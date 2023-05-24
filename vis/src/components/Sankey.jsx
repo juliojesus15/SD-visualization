@@ -56,7 +56,7 @@ export const Sankey = () => {
 
     const GAP = 180
     var width = GAP * ( timelapse.end - timelapse.begin) + 100
-    var height = 270 - margin.top - margin.bottom
+    var height = 370 - margin.top - margin.bottom
     const NODEWIDTH = 15
     const NODEPADDING = 14
 
