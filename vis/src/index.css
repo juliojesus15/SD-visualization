@@ -73,4 +73,13 @@
     cursor: pointer;
   }
 
+  .context-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #8d8d8d;
+    padding: 8px;
+    font-size: 14px;
+    z-index: 10
+  }
+
 }

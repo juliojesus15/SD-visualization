@@ -7,7 +7,7 @@ import { getRoadmapByStudentId } from "../services/studentService"
 import { times } from "../constant/filter";
 
 export const StudentTable = () => {
-  const { students, setNodes, setLinks, nodes, links, timelapse } = useContext(FilterContext)
+  const { students, setNodes, setLinks, nodes, links, timelapse, selectedTimes, setSelectedTimes } = useContext(FilterContext)
 
   const [ studentsSelected, setStudentsSelected] = useState([])
 
@@ -36,28 +36,35 @@ export const StudentTable = () => {
 
   };
 
-  return <div className="text-gray-700 text-lg font-bold w-full "> 
-    <table className="text-sm w-full">
-      <thead className="w-full">
-        <tr className="flex justify-between   w-full">
-          <th className="text-center">  </th>
-          <th className="text-">   </th>
-          <th className="text-center">   </th>
+  return <div className="text-gray-900 text-lg font-bold w-ful"> 
+    <table className="text-sm wfull bg-cyan-300 p-2">
+      <thead>
+        
+        <tr className="[&>*]w-1/5  bg-red-500  ">
+          <th className="w-15 bg-purple-500"> # </th>
+          <th className="w-15 bg-purple-500"> Id  </th>
+          <th className="w-15 bg-purple-500"> Alumno  </th>
+          <th className="w-1/5"> Genero </th>
+          <th className="w-15 bg-purple-500 block -5"> Matricula </th>
+          
+          <th className="w-1/5"> opciones </th>
         </tr>
+
       </thead>
-      <tbody className="w-full">
+      <tbody>
+
       {
         students.map( (student,key) => {
           //console.log(student)
           return (
-            <tr key={ key } className="even:bg-gray-200 grip grid-cols-3 justify-between"> 
+            <tr key={ key } className="even:bg-gray-200  w-full"> 
               <td className="text-center"> {key+1} </td>
-              <td className="text-center hidden md:block"> {student.id} </td>
-              <td className="text-center"> {student.name} </td>
-              <td className="text-center"> {student.lastname} </td>
+              <td className="text-center "> {student.id} </td>
+              <td className="text-center"> {student.name} {student.lastname}</td>
+              
               <td className="text-center"> {student.gender} </td>
               <td className="text-center"> {student.enrollment} </td>
-              <td className="text-center"> {student.semester} </td>
+              
               <td className="text-center"> 
                 <button  
                   onClick={ () => getRow(student) } 
