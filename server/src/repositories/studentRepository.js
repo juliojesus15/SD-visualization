@@ -4,7 +4,7 @@ import path from "path"
 const roadmapFilePath = path.join(__dirname, '../db/data/roadmap/')
 
 
-export const getRoadmapByStudentId = async ( studentId, enrollment ) => {
+export const getRoadmapByStudentId = async ( studentId, enrollment, timeEnd, color ) => {
   try {
     const filename = roadmapFilePath + enrollment + ".json"
     

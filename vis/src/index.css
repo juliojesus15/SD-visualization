@@ -75,11 +75,129 @@
 
   .context-menu {
     position: absolute;
+    width: 100px;
     background-color: white;
     border: 1px solid #8d8d8d;
-    padding: 8px;
+    
     font-size: 14px;
-    z-index: 10
+    z-index: 10;
+    color: #565656;
+    text-transform: uppercase;
   }
 
+  .context-menu * {
+    padding: 5px 10px;
+  }
+
+  .context-menu *:first-child {
+    border-bottom: 1px solid #8d8d8d;
+  }
+
+  .context-menu *:hover {
+    background-color: var(--color-accent);
+    cursor: pointer;
+    color: white;
+    
+
+  }
+  .color-button {
+    position: relative;
+  }
+  
+  .button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .color-popup {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    z-index: 10;
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .color-option {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    margin-bottom: 4px;
+    cursor: pointer;
+  }
+  
+  .color-option:hover {
+    opacity: 0.8;
+  }
+
+  .blue {
+    fill: none;
+    stroke: #1f77b4;
+    cursor: pointer;
+  }
+  .orange {
+    fill: none;
+    stroke: #ff7f0e;
+    cursor: pointer;
+  }
+
+  .green {
+    fill: none;
+    stroke: #2ca02c;
+    cursor: pointer;
+  }
+
+  .red {
+    fill: none;
+    stroke: #d62728;
+    cursor: pointer;
+  }
+
+  .purple {
+    fill: none;
+    stroke: #9467bd;
+    cursor: pointer;
+  }
+
+  .brown {
+    fill: none;
+    stroke: #8c564b;
+    cursor: pointer;
+  }
+
+  .pink {
+    fill: none;
+    stroke: #e377c2;
+    cursor: pointer;
+  }
+  
+        
+
+  .gray {
+    fill: none;
+    stroke: #7f7f7f;
+    cursor: pointer;
+  }
+
+  .olive {
+    fill: none;
+    stroke: #bcbd22;
+    cursor: pointer;
+  }
+
+  .cyan {
+    fill: none;
+    stroke: #17becf;
+    cursor: pointer;
+  }
+
+
+  
+        
 }

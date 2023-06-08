@@ -3,15 +3,15 @@ import { getRoadmapByStudentId } from '../repositories/studentRepository.js';
 
 export const getSankeyByStudentId = async (req, res) => {
   try {
-    const { studentId, name, lastname, timeBegin, timeEnd } = req.query;
+    const { studentId, name, lastname, timeBegin, timeEnd, color } = req.query;
 
-    let studentRoadmap = await getRoadmapByStudentId(studentId, timeBegin, timeEnd);
+    let studentRoadmap = await getRoadmapByStudentId(studentId, timeBegin, timeEnd, color);
     console.log(timeEnd)
     console.log(studentRoadmap)
 
     const nodeId = "0N-" + timeBegin
 
-    let node = {"nodeId": nodeId, "name": name + " " + lastname, "color": "#FFFF00", "x": 0}
+    let node = {"nodeId": nodeId, "name": name + " " + lastname, "color": color, "x": 0}
     
     studentRoadmap[0].roadmap = "0N"
     
@@ -48,7 +48,7 @@ export const getSankeyByStudentId = async (req, res) => {
         target,        
         value: 10,
         students: [],
-        color: "links__link--student"
+        color: color
       }
       
       links.push(link)

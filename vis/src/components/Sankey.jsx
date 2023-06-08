@@ -7,6 +7,8 @@ import { times } from "../constant/filter";
 
 import { getSankeyDiagram, getSankeyDiagramOnlyFreshmen } from "../services/sankeyService"
 
+import { ColorButton } from "./ColorButtom";
+
 const COLORS = {
   blue: "#08008B",
   red: "#D60000",
@@ -39,8 +41,8 @@ export const Sankey = () => {
   
   useEffect( () => {
     const fechtData = async () => {
-      const response = await getSankeyDiagram(times[timelapse.begin].name,times[timelapse.end].name)
-      //const response = await getSankeyDiagramOnlyFreshmen(times[timelapse.begin].name,times[timelapse.end].name)
+      //const response = await getSankeyDiagram(times[timelapse.begin].name,times[timelapse.end].name)
+      const response = await getSankeyDiagramOnlyFreshmen(times[timelapse.begin].name,times[timelapse.end].name)
       setNodes(response.nodes)
       setLinks(response.links)      
     }    
@@ -54,18 +56,13 @@ export const Sankey = () => {
   }, [ nodes, links])
 
 
-
-
-
-
-
   const updateNodes = (d) => {      
     const key = d.slice(-7)    
     setSelectedTimes(prevData => {
       const tmp =  selectedTimes    
       const idx = selectedTimes.findIndex(objeto => objeto.name === key)    
       let tmpObj = tmp[idx]
-      console.log("TMP ", tmpObj)
+      //console.log("TMP ", tmpObj)
 
       if (tmpObj.semesters.includes( d)) {          
         return [...prevData]
@@ -85,7 +82,7 @@ export const Sankey = () => {
       const tmp =  selectedTimes    
       const idx = selectedTimes.findIndex(objeto => objeto.name === key)    
       let tmpObj = tmp[idx]
-      console.log("TMP ", tmpObj)
+      //console.log("TMP ", tmpObj)
 
       if (tmpObj.semesters.includes( d)) { 
         const tmpIdx = tmpObj.semesters.indexOf(d)
@@ -102,6 +99,143 @@ export const Sankey = () => {
     })
   }
 
+  const joinNodes = async () => {
+    //console.log("JOIN NODES")
+    const tmpNodes = nodes
+    let deletingNodes = nodes
+    //console.log("JOIN NODES: ", nodes)
+
+    //console.log(selectedTimes)
+    const containerNewNodes = []
+    selectedTimes.forEach( time => {
+      //console.log("TIME" ,time)
+      if ( time.semesters.length >= 2) {
+        const filterNodes = time.semesters
+        const filtered = tmpNodes.filter( node => filterNodes.includes( node.nodeId ) )
+        deletingNodes = deletingNodes.filter(node => !filterNodes.includes(node.nodeId));
+        //console.log("filtered: ", filtered)
+        
+
+        let newNodeId = ""
+        let newNodeName = ""
+        let newOrder = 0
+        let newX = 0
+        filtered.forEach( node => {
+          const key = node.nodeId.slice(0, -8);
+
+          //console.log(node)
+          newNodeId = newNodeId + key + "-"
+          newX = node.x
+          newOrder = node.order
+          
+        })
+        newNodeId = newNodeId + time.name
+        newNodeName = newNodeId
+        const joinedNodes = {
+          "nodeId": newNodeId,
+          "name": newNodeName,
+          "color": "#EA906C",
+          "x": newX,
+          "order": newOrder,
+          nodes: filtered  
+        }
+        //console.log(joinedNodes)
+        containerNewNodes.push(joinedNodes)
+      }
+    })
+
+    
+    
+    //console.log("**=> ", containerNewNodes)
+    //console.log("**=> ", tmpNodes)
+    //console.log("**=> ", tmpLinks)
+
+    //const response = await getSankeyDiagram(times[timelapse.begin].name,times[timelapse.end].name)
+    //console.log(response.links)
+    // {source: '1N-2015-01', target: '1-2015-02', value: 27.27, students: Array(3)}
+    const tmpLinks = links
+    //console.log("Example Link: ", tmpLinks[0])
+
+    // FROM
+    const containerNewLinks = []
+    containerNewNodes.forEach( newNode => {
+      //console.log("***", newNode)
+      const tmpNodes = newNode.nodes
+      //console.log(newNode.nodes)
+      //const tmp = newNode.nodes
+      tmpNodes.forEach( node => {
+        //console.log("NODE", node.nodeId)
+        const id = node.nodeId
+
+        const filterFrom = tmpLinks.filter( link => link.source.nodeId == id)
+        //console.log("FILTER FROM ", filterFrom)
+        filterFrom.forEach( item => {
+          containerNewLinks.push({source: newNode.nodeId, color: item.color, target: item.target.nodeId, value: item.value, students: item.students, joined: true})
+        })
+      })
+      
+    })
+
+    // TO
+    //const containerNewLinks = []
+    containerNewNodes.forEach( newNode => {
+      //console.log("***", newNode)
+      const tmpNodes = newNode.nodes
+      //console.log(newNode.nodes)
+      //const tmp = newNode.nodes
+      tmpNodes.forEach( node => {
+        //console.log("NODE", node.nodeId)
+        const id = node.nodeId
+
+        const filterFrom = tmpLinks.filter( link => link.target.nodeId == id)
+        //console.log("FILTER FROM ", filterFrom)
+        filterFrom.forEach( item => {
+          containerNewLinks.push({source: item.source.nodeId, color: item.color, target: newNode.nodeId, value: item.value, students: item.students, joined: true })
+        })
+      })
+      
+    })
+
+    // deleting nodes 
+    let containerTimes = []
+    selectedTimes.forEach( time => {
+      //console.log("TIME" ,time)
+      if ( time.semesters.length >= 2) {
+        const tmpTimes = time.semesters
+        containerTimes = [...containerTimes, ...tmpTimes]    
+      }
+    })
+
+    
+    // deleting nodes joined
+    const filtered = nodes.filter(node => !containerTimes.includes(node.nodeId));
+    console.log("===> ", filtered)
+
+    
+
+    // delting links
+    // FROM
+    //console.log("LINKS ", links)
+    const filteredLinksFrom = links.filter( link => !containerTimes.includes(link.source.nodeId))
+    const filteredLinksTo = filteredLinksFrom.filter( link => !containerTimes.includes(link.target.nodeId))
+    //console.log("filteredLinksTo ", filteredLinksTo)
+
+    //const testLinks = [filteredLinksFrom, filteredLinksTo]
+    
+
+    setNodes([...filtered, ...containerNewNodes])
+    setLinks([...filteredLinksTo, ...containerNewLinks])
+
+    const tmp = selectedTimes.map( time => {
+      return {...time, semesters:[]}
+    })
+    setSelectedTimes(tmp)
+
+
+
+
+  }
+
   
 
 
@@ -112,7 +246,7 @@ export const Sankey = () => {
 
     const GAP = 180
     var width = GAP * ( timelapse.end - timelapse.begin) + 100
-    var height = 350 - margin.top - margin.bottom
+    var height = 300 - margin.top - margin.bottom
     const NODEWIDTH = 20
     const NODEPADDING = 10
 
@@ -132,9 +266,7 @@ export const Sankey = () => {
 
     contextMenu.append("div")
       .text("Unir")
-      .on("click", function() {
-        console.log("Unir opción seleccionada ");
-      });
+      .on("click", joinNodes );
 
     contextMenu.append("div")
       .text("Separar")
@@ -147,20 +279,20 @@ export const Sankey = () => {
     .append("svg")
     .attr("width",  width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-    .attr("class", "border-test")
+    //.attr("class", "border-test")
   
     .on("contextmenu", function() {        
         d3.event.preventDefault()
         
         const x = d3.event.clientX - 10;
-        const y = d3.event.clientY -150;
+        const y = d3.event.clientY - 65;
                 
         contextMenu
           .style("left", `${x}px`)
           .style("top", `${y}px`)
           .style("display", "block");
           
-        console.log("Menú contextual activado");
+        //console.log("Menú contextual activado");
     })
     .append("g")
     .attr("transform", "translate(" + 10 + "," + margin.top + ")")    ;
@@ -171,9 +303,6 @@ export const Sankey = () => {
     });
     
 
-
-  
-           
     const sankeyLayout =  d3Sankey.sankey()
       .nodeId( d => d.nodeId)
       .nodeWidth(NODEWIDTH)
@@ -225,12 +354,64 @@ export const Sankey = () => {
 
   // setting color of links (provisional)
   const setLinkColor = (d) => {
+    const from = d.source.nodeId.slice(0, -8);
+    const to = d.target.nodeId.slice(0, -8);
+    console.log(d)
+    console.log("From ", from)
+    console.log("To ", to)
+    if ( d.color == "links__link--student") return "links__link--student"    
+
+    if(!d.joined){
+
+      if ('color' in d){
+        if("#1f77b4" ==d.color) return "blue"  
+        if("#ff7f0e" ==d.color) return "orange"
+        if("#2ca02c" ==d.color) return "green"
+        if("#d62728" ==d.color) return "red"
+        if("#9467bd" ==d.color) return "purple"
+        if("#8c564b" ==d.color) return "brown"
+        if("#e377c2" ==d.color) return "pink"
+        if("#7f7f7f" ==d.color) return "gray"
+        if("#bcbd22" ==d.color) return "olive"
+        if("#17becf" ==d.color) return "cyan"
+        return d.color
+      }
+
+      if (from === "1N"){
+        if( to === "1") {
+          return "links__link--repeat"
+        }
+        if( to === "2") {
+          return "links__link--success"
+        }
+        if( to === "0") {
+          return "links__link--dropout"
+        }
+      }
+      else if( from == to) {
+        return "links__link--repeat"
+      }
+      else if( to!="0" && from != to) {
+        return "links__link--success"
+      }
+      else if(to==="0") {
+        return "links__link--dropout"
+      }
+    }
+    else {      
+        return "links__link--success"
+    }
+    
+ 
+    
+    
+
     //console.log(d.color)
-    if ( d.color == "links__link--dropout") return "links__link--dropout"
-    if ( d.color == "links__link--success") return "links__link--success"
-    if ( d.color == "links__link--repeat") return "links__link--repeat"
-    if ( d.color == "links__link--student") return "links__link--student"      
-    if (d.color == null) return "link"      
+    //if ( d.color == "links__link--dropout") return "links__link--dropout"
+    //if ( d.color == "links__link--success") return "links__link--success"
+    //if ( d.color == "links__link--repeat") return "links__link--repeat"
+    //if ( d.color == "links__link--student") return "links__link--student"      
+    //if (d.color == null) return "link"      
   }
     
 
@@ -260,7 +441,7 @@ export const Sankey = () => {
           d3.select(this)
             .style("stroke", "#DF2D64")
             .style("stroke-width", 4)
-          console.log("* ", d)
+          //console.log("* ", d)
         updateNodes(d.nodeId)
       } else {
         // Deselect the node        

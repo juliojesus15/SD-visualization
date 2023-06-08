@@ -13,12 +13,12 @@ export const Dashboard = () => {
     <div className="h-screen bg-gray-200 flex flex-col gap-2 p-2  w-screen">
       
       <SelectedNodes />
-      <section className="  bg-gray-100 border border-gray-300 rounded-2xl relative  overflow-auto h-full" >
+      <section className="  bg-gray-100 border border-gray-300 rounded-2xl relative  overflow-auto h-2/3" >
         <FiltersBar />
         <Sankey />        
       </section>           
         
-      <section className="flex gap-2 h-1/3 hidden">
+      <section className="flex gap-2 h-1/3 ">
         <div className="w-1/3 bg-gray-100 border border-gray-300 rounded-2xl overflow-auto">
           <StudentTable /> 
         </div>

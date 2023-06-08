@@ -5,7 +5,7 @@ import { FilterContext } from "../context/FilterContext"
 export const SelectedNodes = () => {
   const { selectedNodes, selectedTimes } = useContext(FilterContext)
   return (
-    <div className="">
+    <div className="hidden">
     { 
       selectedTimes.map( (element, key) => {        
         return (
