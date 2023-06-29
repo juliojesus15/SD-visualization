@@ -1,0 +1,13 @@
+# Ignorar archivos generados por Flask
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyi
+*.pyw
+*.pyz
+*.pyzw
+
+# Ignorar archivos de entorno virtual
+venv/
+env/

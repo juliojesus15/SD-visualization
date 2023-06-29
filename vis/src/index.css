@@ -77,12 +77,13 @@
     position: absolute;
     width: 100px;
     background-color: white;
-    border: 1px solid #8d8d8d;
-    
-    font-size: 14px;
+    border: 2px solid #e5e5e5;
+    font-weight: 500;
+    font-size: 12px;
     z-index: 10;
     color: #565656;
     text-transform: uppercase;
+    border-radius: 5px;
   }
 
   .context-menu * {
@@ -90,7 +91,7 @@
   }
 
   .context-menu *:first-child {
-    border-bottom: 1px solid #8d8d8d;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   .context-menu *:hover {
@@ -140,6 +141,7 @@
     fill: none;
     stroke: #1f77b4;
     cursor: pointer;
+    z-index: -1;
   }
   .orange {
     fill: none;
@@ -198,6 +200,10 @@
   }
 
 
+  .title-node {
+    background-color: red;
+    z-index: 1;
+  }
   
         
 }
