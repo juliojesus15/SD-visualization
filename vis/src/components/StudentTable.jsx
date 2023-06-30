@@ -37,7 +37,7 @@ export const StudentTable = () => {
 
   };
 
-  return <div className="text-gray-900 text-lg font-bold w-ful"> 
+  return <div className="text-gray-900 dark:text-gray-300 text-lg font-bold w-ful"> 
     <table className="text-sm w-full b p-4 bg-red-00">
       <thead className="bg-cyan-  h-8 font-roboto tracking-tight uppercase text-xs">
         
@@ -51,13 +51,13 @@ export const StudentTable = () => {
         </tr>
 
       </thead>
-      <tbody className="text-gray-800 font-medium tracking-tighter">
+      <tbody className="text-gray-800 dark:text-gray-300 font-medium tracking-tighter">
 
       {
         students.map( (student,key) => {
           //console.log(student)
           return (
-            <tr key={ key } className="even:bg-gray-300  w-full"> 
+            <tr key={ key } className="even:bg-gray-300 dark:even:bg-dark-200 w-full"> 
               <td className="text-center"> {key+1} </td>
               <td className="text-center"> {student.name} {student.lastname}</td>
               

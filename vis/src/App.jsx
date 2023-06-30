@@ -1,16 +1,15 @@
-// components
-import { Dashboard } from "./pages/Dashboard"
-
 import { FilterProvider } from './context/FilterProvider';
+import { ThemeProvider } from "./context/ThemeProvider";
 
+import { Dashboard } from "./pages/Dashboard"
 
 function App() {  
   return (    
-    <FilterProvider>
-      <div className="">
-        <Dashboard />
-      </div>    
-    </FilterProvider>
+    <ThemeProvider>
+      <FilterProvider>      
+        <Dashboard />      
+      </FilterProvider>
+    </ThemeProvider>
   )
 }
 

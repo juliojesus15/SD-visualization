@@ -11,3 +11,4 @@ class NodeRepository(BaseRepository):
       return nodes
     except FileNotFoundError:
       raise Exception('Archivo de nodos no encontrado')
+  
