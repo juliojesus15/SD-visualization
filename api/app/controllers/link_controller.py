@@ -5,7 +5,7 @@ class LinkController:
 		self.link_service = link_service
 		
 		self.blueprint = Blueprint('link', __name__)
-		self.blueprint.route('/link', methods=['GET'])(self.get_links_within_range)
+		self.blueprint.route('/api/link', methods=['GET'])(self.get_links_within_range)
 		
 		
 	def get_links_within_range(self):
@@ -19,5 +19,5 @@ class LinkController:
 		
 		except Exception as e:
 			error_message = str(e)
-			return jsonify({ 'status': error_message, 'links': None }), 500
+			return jsonify({ 'status': False, 'links': None }), 500
 
