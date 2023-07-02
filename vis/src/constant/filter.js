@@ -19,8 +19,7 @@ export const times = [
   { id: 17, name: '2018-02' },
   { id: 18, name: '2019-01' },
   { id: 19, name: '2019-02' },
-  { id: 20, name: '2020-01' },
-  { id: 21, name: '2020-02' },  
+  { id: 20, name: '2020-01' },  
 ]
 
 export const genders = [

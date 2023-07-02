@@ -1,42 +1,45 @@
-import { useState, useEffect } from "react"
-import { StudentContext } from "./StudentContext"
+import { useState, useEffect } from "react";
+import { StudentContext } from "./StudentContext";
 
-import { getNodesWithinRange } from "../services/NodeService"
-import { getLinksWithinRange } from "../services/LinkService"
+import { getData } from "../services/sourceService";
 
-import {times}  from "../constant/filter"
-
-export const StudentProvider = ({ children }) => {
-
+export const StudentProvider = ({ children }) => {  
   const [ semesterFrom, setSemesterFrom ] = useState("2010-01");
-  const [ semesterTo, setSemesterTo ] = useState("2010-02");
-
+  const [ semesterTo, setSemesterTo ] = useState("2011-01");
 
   const [ nodes, setNodes ] = useState([]);
   const [ links, setLinks ] = useState([]);
+  const [ semesters, setSemesters ] = useState([])
   
   const [ errorData, setErrorData ] = useState("");
     
-
   useEffect( () => {
     const fetchData = () => {
-      return Promise.all([ 
-        getNodesWithinRange(semesterFrom, semesterTo), 
-        getLinksWithinRange(semesterFrom, semesterTo) 
-      ])
-      .then(([nodes, links]) => {
-        setNodes(nodes.data.nodes)
-        setLinks(links.data.links)        
-      })
-      .catch(error => {
-        console.error("Getting nodes & Links ", error);
-        setErrorData("Error al obtener los datos")
-      });
-    }
-    fetchData()
-  },[] )
+      return getData(semesterFrom, semesterTo)
+        .then((sources) => {
+          setNodes(sources.data.nodes);
+          setLinks(sources.data.links);
+          setSemesters(sources.data.semesters);
+        })
+        .catch((error) => {
+          console.error("Getting data ", error);
+          setErrorData("Error al obtener los datos");
+        });
+    };
+    if (semesterFrom && semesterTo)
+      fetchData()
+  },[semesterFrom, semesterTo] )
 
-  const data = { nodes, links, errorData }
+  const updateSemesterFrom = (value) => {
+    setSemesterFrom(value);
+    setSemesterTo(null)
+  }
+
+  const updateSemesterTo = (value) => {
+    setSemesterTo(value)
+  }
+
+  const data = { nodes, links, semesters, semesterFrom, semesterTo, updateSemesterTo, updateSemesterFrom, errorData }
   
   return (
     <StudentContext.Provider value={ data }>

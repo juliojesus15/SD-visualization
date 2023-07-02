@@ -21,9 +21,9 @@ class LinkService:
       container_links = []
       
       for semester in combined_semesters:
-        message, links = self.link_repository.get_links(semester)
+        message, links = self.link_repository.get_links(semester)                
         container_links.append(links)
-      
+                
         if links is None:
           raise Exception('No se encontraron links para el rango especificado')      
         

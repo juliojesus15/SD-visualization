@@ -6,27 +6,20 @@ from controllers.test_controller import TestController
 from domain.repositories.node_repository import NodeRepository
 from domain.repositories.link_repository import LinkRepository
 
-from services.node_service import NodeService
-from services.link_service import LinkService
+from services.sankey_service import SankeyService
 
-from controllers.node_controller import NodeController
-from controllers.link_controller import LinkController
+from controllers.sankey_controller import SankeyController
 
 
 app = Flask(__name__)
 
 node_repository = NodeRepository()
-node_service = NodeService(node_repository)
-node_controller = NodeController(node_service)
-
 link_repository = LinkRepository()
-link_service = LinkService(link_repository)
-link_controller = LinkController(link_service)
-
+sankey_service = SankeyService(node_repository, link_repository)
+sankey_controller = SankeyController(sankey_service)
 
 # Registers
-app.register_blueprint(node_controller.blueprint)
-app.register_blueprint(link_controller.blueprint)
+app.register_blueprint(sankey_controller.blueprint)
 
 roadmap_controller = RoadmapController()
 test_controller = TestController()

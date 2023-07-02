@@ -56,8 +56,9 @@
   
   .links__link--success {
     fill: none;
-    stroke: #7b85e465;
-    cursor: pointer;
+    /*stroke: #7b85e465;*/
+    stroke: rgba(99, 99, 255, 0.775);
+    
 
   }
   

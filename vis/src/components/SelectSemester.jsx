@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-export const SelectSemester = ({ options }) => {
+export const SelectSemester = ({ options, onSelect, defaultValue }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
 
   const handleSelectOption = (option) => {
     setSelectedOption(option);
     setShowOptions(false);
+    onSelect(() => option);
   };
 
   const toggleOptions = () => {
@@ -14,7 +15,7 @@ export const SelectSemester = ({ options }) => {
   };
 
   return (
-    <div className="relative w-28 h-6 bg-gray-200 dark:bg-dark-200 rounded-md">      
+    <div className="relative w-28 h-6 bg-gray-200 dark:bg-dark-200 rounded-md z-50">
       <div 
         onClick={ toggleOptions } 
         className="
@@ -30,7 +31,7 @@ export const SelectSemester = ({ options }) => {
           h-full 
           ${ showOptions ? "duration-0 rounded-b-none" : "duration-1000" } `} 
         > 
-          { selectedOption != null ? selectedOption : "Selecionar" } 
+          { selectedOption != null ? selectedOption : defaultValue } 
         </div>
         { 
           <ul className={`

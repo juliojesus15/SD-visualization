@@ -3,7 +3,7 @@ import { useSpring, animated } from "@react-spring/web";
 
 import { ThemeContext } from "../context/ThemeContext";
 
-const ThemeButton = () => {
+export const ThemeButton = () => {
   const { colorTheme, setTheme } = useContext(ThemeContext)
   const [ isDarkMode, toggle ] = useState(colorTheme === "dark" ? true : false);
   
@@ -93,4 +93,3 @@ const ThemeButton = () => {
   );
 }
 
-export default ThemeButton
