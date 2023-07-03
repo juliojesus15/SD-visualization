@@ -61,7 +61,7 @@ const getSankeyDiagramOnlyFreshmen = async (req, res) => {
       })
       
       // concatenacion de los links
-      links = [...links, ...neighbors]
+      links = [ ...links, ...neighbors ]
 
       // reiniciamos el stack para almacenar el vecindario encontrado
       stack = []  

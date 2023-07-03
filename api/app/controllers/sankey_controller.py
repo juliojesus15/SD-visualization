@@ -11,7 +11,9 @@ class SankeyController:
 		try:				
 			semester_from = request.args.get('semester_from')
 			semester_to = request.args.get('semester_to')
+			
 			nodes, links, semesters = self.sankey_service.get_data(semester_from, semester_to)
+			
 			return jsonify({'status': True, 'nodes': nodes, 'links': links, 'semesters': semesters }), 200
 		
 		except Exception as e:

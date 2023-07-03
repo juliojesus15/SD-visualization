@@ -28,11 +28,11 @@ export const CustomSankey = () => {
   const drawChart = (nodes, links, semesters) => {
 
 
-    const margin = { top: 20, right: 100, bottom: 0, left: 0 }
+    const margin = { top: 0, right: 100, bottom: 0, left: 0 }
 
     const GAP = 180
     var width = 1024
-    var height = 220 - margin.top - margin.bottom
+    var height = 245
     const NODEWIDTH = 20
     const NODEPADDING = 10
 
