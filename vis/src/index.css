@@ -10,6 +10,10 @@
 
 @layer componets {
   .timelapse__tag { @apply font-roboto font-semibold text-xs }
+
+  .test {
+    @apply bg-red-500
+  }
 }
 
 @layer utilities {
@@ -48,31 +52,9 @@
     margin-left: 5px;
   }
 
-  .links__link--repeat {
-    fill: none;
-    stroke: #efd64691;
-    cursor: pointer;
-  }
-  
-  .links__link--success {
-    fill: none;
-    /*stroke: #7b85e465;*/
-    stroke: rgba(99, 99, 255, 0.775);
-    
 
-  }
   
-  .links__link--dropout {
-    fill: none;
-    stroke: #f8424291;
-    cursor: pointer;
-  }
 
-  .links__link--student {
-    fill: none;
-    stroke: #87ff0f91;
-    cursor: pointer;
-  }
 
   .context-menu {
     position: absolute;

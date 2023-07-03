@@ -13,7 +13,7 @@ export const ControllerBar = () => {
   const limitedOptions = times.filter( ( semester ) => semester.name > semesterFrom );
 
   return (
-    <header className="flex p-2 justify-between">
+    <header className="flex p-2 justify-between border-b border-gray-300 dark:border-gray-600">
       <section className="flex gap-10">
         <div className="flex gap-2">
           <label className="font-roboto font-medium text-xs text-gray-600 dark:text-gray-100 my-auto"> Periodo inicial: </label>

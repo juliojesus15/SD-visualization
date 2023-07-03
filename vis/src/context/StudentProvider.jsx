@@ -9,8 +9,10 @@ export const StudentProvider = ({ children }) => {
 
   const [ nodes, setNodes ] = useState([]);
   const [ links, setLinks ] = useState([]);
-  const [ semesters, setSemesters ] = useState([])
+  const [ semesters, setSemesters ] = useState([]);
   
+  const [ linkStudent, setLinkStudent ] = useState([])
+
   const [ errorData, setErrorData ] = useState("");
     
   useEffect( () => {
@@ -39,7 +41,15 @@ export const StudentProvider = ({ children }) => {
     setSemesterTo(value)
   }
 
-  const data = { nodes, links, semesters, semesterFrom, semesterTo, updateSemesterTo, updateSemesterFrom, errorData }
+  const data = { 
+    nodes, 
+    links, 
+    semesters, 
+    semesterFrom, updateSemesterFrom, 
+    semesterTo, updateSemesterTo, 
+    linkStudent, setLinkStudent,
+    errorData, 
+  }
   
   return (
     <StudentContext.Provider value={ data }>

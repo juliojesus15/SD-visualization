@@ -3,6 +3,7 @@ import { ControllerBar  } from "../components/ControllerBar";
 //import { Sankey } from "../components/Sankey";
 import { SelectedNodes } from "../components/SelectedNodes";
 import { CustomSankey } from "../components/CustomSankey";
+import { TableStudent } from "../components/TableStudent";
 
 
 export const Dashboard = () => {
@@ -18,7 +19,7 @@ export const Dashboard = () => {
         
       <section className="flex gap-2 h-1/2 [&>*]:bg-gray-100 [&>*]:dark:bg-dark-100 [&>*]:border [&>*]:border-gray-300 [&>*]:dark:border-gray-600 [&>*]:rounded-lg">
         <div className="w-1/3 overflow-auto">
-          <StudentTable /> 
+          <TableStudent /> 
         </div>
         <div className="w-1/3"> </div>
         <div className="w-1/3"> </div>
