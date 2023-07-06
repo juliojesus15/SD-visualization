@@ -22,4 +22,5 @@ export const colorsTab10 = [
   "#7f7f7f",
   "#bcbd22",
   "#17becf",
+  "#ffffff",
 ]

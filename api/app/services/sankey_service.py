@@ -27,14 +27,24 @@ class SankeyService:
           source = neighbor['source'][:-8]
           target = neighbor['target'][:-8]
           neighbor['status'] = get_link_status(source, target)
-          container_links.append(neighbor)
+
+          neighbor['students'] = [ student for student in neighbor['students'] if student['enrollment'] == semester_from ]
+
+          if len(neighbor['students']) > 0 :
+            container_links.append(neighbor)
                         
-        new_sources = [ neighbor['target'] for neighbor in new_neighbors ]
+        new_sources = [ neighbor['target'] for neighbor in new_neighbors if len(neighbor['students']) > 0]
         sources.extend(new_sources)
+      
 
       for semester in semesters:
         message, nodes = self.node_repository.get_nodes(semester)        
-        container_nodes.extend([ node for node in nodes if node['nodeId'] in sources ])
+        #container_nodes.extend([ {**node, 'name': node['nodeId'][:-8]} for node in nodes if node['nodeId'] in sources ])
+        for node in nodes:
+          if node['nodeId'] in sources:
+            key = node['nodeId'][:-8]
+            node['name'] = 'D' if key == '0' else 'E' if key == '11' else key if len(key) == 2 else '0' + key 
+            container_nodes.append(node)            
                                   
       if nodes is None or links is None:
         raise Exception('No se encontraron datos para el rango especificado')

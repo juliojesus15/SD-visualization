@@ -10,7 +10,7 @@ class NodeController:
 
 		
 	def get_nodes(self, year):
-		try:				
+		try:
 			message, nodes = self.node_service.get_nodes(year)
 			return jsonify({'message': message, 'nodes': nodes}), 200
 		

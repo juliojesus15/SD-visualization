@@ -59,16 +59,11 @@ export const StudentTable = () => {
           return (
             <tr key={ key } className="even:bg-gray-300 dark:even:bg-dark-200 w-full"> 
               <td className="text-center"> {key+1} </td>
-              <td className="text-center"> {student.name} {student.lastname}</td>
-              
+              <td className="text-center"> {student.name} {student.lastname}</td>              
               <td className="text-center"> {student.gender} </td>
-              <td className="text-center"> {student.enrollment} </td>
-              
+              <td className="text-center"> {student.enrollment} </td>             
               <td className="text-center relative"> 
-                {/*<button  
-                  onClick={ () => getRow(student) } 
-                  className="border border-gray-600 px-3 py-1 text-xs rounded-lg hover:scale-105 active:scale-95"> Detalle 
-                  </button> */}
+     
                 <ColorButton id={student.id}  name={student.name}  lastname={student.lastname}/>
               </td>
             </tr>

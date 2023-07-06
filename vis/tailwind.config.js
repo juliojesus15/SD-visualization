@@ -7,7 +7,20 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {       
+      colors: {      
+        dropout:{
+          light: '#E15759',
+          dark: '#F44336'
+        },
+        pass:{
+          light: '#4E79A6',
+          dark: '#4CAF50'
+        },
+        repeat:{
+          light: '#F7BF00',
+          dark: '#607D8B'
+        }, 
+        
         dark: {
           100: '#282828',
           200: '#363636'

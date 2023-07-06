@@ -11,9 +11,6 @@
 @layer componets {
   .timelapse__tag { @apply font-roboto font-semibold text-xs }
 
-  .test {
-    @apply bg-red-500
-  }
 }
 
 @layer utilities {
@@ -38,10 +35,15 @@
     stroke-opacity: .5;
   }
 
-  .shadow {
+  .shadow-box {
     -webkit-filter: drop-shadow( 3px 3px 2px rgba(133, 133, 133, 0.7));
     filter: drop-shadow( 3px 3px 2px rgba(136, 136, 136, 0.7));
     /* Similar syntax to box-shadow */
+  }
+  
+  .shadow-box-none {
+    -webkit-filter: drop-shadow( 3px 3px 2px rgba(58, 58, 58, 0.7));
+    filter: drop-shadow( 3px 3px 2px rgba(56, 56, 56, 0.7));
   }
 
 

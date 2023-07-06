@@ -12,6 +12,8 @@ export const StudentProvider = ({ children }) => {
   const [ semesters, setSemesters ] = useState([]);
   
   const [ linkStudent, setLinkStudent ] = useState([])
+  
+  const [ PCloudNode, setPCloudNode ] = useState("")
 
   const [ errorData, setErrorData ] = useState("");
     
@@ -48,6 +50,7 @@ export const StudentProvider = ({ children }) => {
     semesterFrom, updateSemesterFrom, 
     semesterTo, updateSemesterTo, 
     linkStudent, setLinkStudent,
+    PCloudNode, setPCloudNode,
     errorData, 
   }
   

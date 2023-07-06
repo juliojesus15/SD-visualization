@@ -2,32 +2,23 @@ import { faker } from '@faker-js/faker';
 import { appendFileSync } from "fs";
 
 const STUDENTS = []
-const HISTORY = []
+const ROADMAP = []
 
 const CAREER = [ 'Computer Science', 'Civil', 'Industrial' ]
 
 const ENROLLMENT = [
   '2010-01', '2010-02', 
   '2011-01', '2011-02', 
-  '2012-01', '2012-02', 
-  '2013-01', '2013-02',
-  '2014-01', '2014-02',
-  '2015-01', '2015-02',
+  '2012-01', '2012-02',
 ]
 
 const SUB_ENROLLMENT = {
-  '2010-01': ['2010-01', '2010-02', '2011-01', '2011-02', '2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02',], 
+  '2010-01': ['2010-01', '2010-02', '2011-01', '2011-02', '2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', ], 
   '2010-02': ['2010-02', '2011-01', '2011-02', '2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', ], 
   '2011-01': ['2011-01', '2011-02', '2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02', ], 
   '2011-02': ['2011-02', '2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02', '2017-01', ], 
   '2012-01': ['2012-01', '2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02', '2017-01', '2017-02', ], 
-  '2012-02': ['2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02', '2017-01', '2017-02', '2018-01', ],
-  '2013-01': ['2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02', '2017-01', '2017-02', '2018-01', '2018-02', ], 
-  '2013-02': ['2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02', '2017-01', '2017-02', '2018-01', '2018-02', '2019-01', ],
-  '2014-01': ['2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02', '2017-01', '2017-02', '2018-01', '2018-02', '2019-01', '2019-02', ], 
-  '2014-02': ['2014-02', '2015-01', '2015-02', '2016-01', '2016-02', '2017-01', '2017-02', '2018-01', '2018-02', '2019-01', '2019-02', '2020-01', ],
-  '2015-01': ['2015-01', '2015-02', '2016-01', '2016-02', '2017-01', '2017-02', '2018-01', '2018-02', '2019-01', '2019-02', '2020-01', '2020-02', ], 
-  '2015-02': ['2015-02', '2016-01', '2016-02', '2017-01', '2017-02', '2018-01', '2018-02', '2019-01', '2019-02', '2020-01', '2020-02', '2021-01', ],
+  '2012-02': ['2012-02', '2013-01', '2013-02', '2014-01', '2014-02', '2015-01', '2015-02', '2016-01', '2016-02', '2017-01', '2017-02', '2018-01', ],  
 }
 
 const saveAsCSV = (data, filename) => {
@@ -42,30 +33,62 @@ const saveAsCSV = (data, filename) => {
   })  
 }
 
-const createRandomStudent = () => {
-  const semester = faker.datatype.number({ min:1, max:10 });
+const generateRandomGrades = (semester, dropoutStatus) => {
+  const defaultRange = { min: 2, max: 12 };
+  let gradeRange;
+
+  if (semester >= 8) {
+    gradeRange = dropoutStatus ? { min: 10, max: 13 } : { min: 12, max: 20 };
+  } 
+  else if (semester >= 6 && semester < 8) {
+    gradeRange = dropoutStatus ? { min: 10, max: 12 } : { min: 11, max: 14 };
+  } 
+  else if (semester >= 3 && semester < 6) {
+    gradeRange = dropoutStatus ? { min: 5, max: 12 } : { min: 10, max: 12 };
+  } 
+  else {
+    gradeRange = defaultRange;
+  }
+
+  return faker.datatype.number(gradeRange);
+};
+
+const createRandomStudent = (enrollment) => {
+  const maxSemester = faker.datatype.number({ min:1, max:10 });
 
   const dropout = faker.datatype.number({ min:0, max:1 }) === 1 ? true : false;
 
-  let dropoutStatus = semester < 3 ? true : dropout;
-  if (semester === 10) dropoutStatus = false;
+  let dropoutStatus = maxSemester < 3 ? true : dropout;
+  if (maxSemester === 10) 
+    dropoutStatus = false;
 
   return {
     student_id: faker.datatype.uuid(),
-    enrollment: ENROLLMENT[ faker.datatype.number({ min:0, max: ENROLLMENT.length - 1})  ],
+    enrollment: enrollment,
     name: faker.name.firstName(),
     lastname: faker.name.lastName(),
     gender: faker.name.sex(),
     career: CAREER[ faker.datatype.number({ min:0, max: CAREER.length -1 }) ],
-    current_semester: semester,
+    current_semester: maxSemester,
+    grade1:  generateRandomGrades(maxSemester, dropoutStatus),
+    grade2:  generateRandomGrades(maxSemester, dropoutStatus),
+    grade3:  generateRandomGrades(maxSemester, dropoutStatus),
+    grade4:  generateRandomGrades(maxSemester, dropoutStatus),
+    grade5:  generateRandomGrades(maxSemester, dropoutStatus),
+    grade6:  generateRandomGrades(maxSemester, dropoutStatus),
+    grade7:  generateRandomGrades(maxSemester, dropoutStatus),
+    grade8:  generateRandomGrades(maxSemester, dropoutStatus),
+    grade9:  generateRandomGrades(maxSemester, dropoutStatus),
+    grade10: generateRandomGrades(maxSemester, dropoutStatus),
     dropout: dropoutStatus
   };
 }
 
-Array.from({ length: 100 }).forEach(() => {
-  STUDENTS.push(createRandomStudent());
-});
-
+ENROLLMENT.forEach( element => {
+  Array.from({ length: 500 }).forEach(() => {
+    STUDENTS.push(createRandomStudent( element ));
+  });
+})
 
 STUDENTS.forEach( ({student_id, current_semester, dropout, enrollment }) => {
 
@@ -87,7 +110,7 @@ STUDENTS.forEach( ({student_id, current_semester, dropout, enrollment }) => {
   const enrollments = SUB_ENROLLMENT[ enrollment ]
     
   fullSemester.forEach( (num, index) => {    
-    HISTORY.push({
+    ROADMAP.push({
       timelapse: enrollments[index],
       student_id: student_id,
       semester: num 
@@ -95,6 +118,5 @@ STUDENTS.forEach( ({student_id, current_semester, dropout, enrollment }) => {
   }) 
 })
 
-
 saveAsCSV(STUDENTS, "./students.csv")
-saveAsCSV(HISTORY, "./semesters.csv")
+saveAsCSV(ROADMAP, "./semesters.csv")
