@@ -52,7 +52,7 @@ export const CustomSankey = () => {
       .nodePadding(NODEPADDING)
       .nodeAlign(d3Sankey.sankeyLeft)
       .size([width - margin.right, height - margin.bottom])
-      .nodeSort(function(a, b) { return d3.ascending(a.name, b.name) })
+      .nodeSort(function(a, b) { return d3.ascending(a.vertical_order, b.vertical_order) })
       
     sankeyLayout({ "nodes": nodes, "links": links });
 

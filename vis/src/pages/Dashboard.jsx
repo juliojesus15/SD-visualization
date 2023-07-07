@@ -18,13 +18,13 @@ export const Dashboard = () => {
       </section>           
         
       <section className="flex gap-2 h-[45%] [&>*]:bg-gray-100 [&>*]:dark:bg-dark-100 [&>*]:border [&>*]:border-gray-300 [&>*]:dark:border-gray-600 [&>*]:rounded-lg">
-        <div className="w-1/3 overflow-auto">
+        <div className="w-full lg:w-1/3 overflow-auto">
           <TableStudent /> 
         </div>
-        <div className="w-1/3"> 
+        <div className="w-full lg:w-1/3"> 
           <CustomPointCloud />
         </div>
-        <div className="w-1/3"> </div>
+        <div className="w-full lg:w-1/3"> </div>
       </section>     
     </div>
   )

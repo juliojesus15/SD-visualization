@@ -24,7 +24,7 @@ export const ControllerBar = () => {
           <SelectSemester defaultValue={ semesterTo } onSelect={ updateSemesterTo } options={ limitedOptions } />
         </div>        
       </section>      
-      <ThemeButton />      
+      <ThemeButton /> 
     </header>
   )
 }

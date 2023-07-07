@@ -8,6 +8,19 @@ export default {
   theme: {
     extend: {
       colors: {      
+        tab: {
+          blue : '#1f77b4',
+          orange : '#ff7f0e',
+          green : '#2ca02c',
+          red : '#d62728',
+          purple : '#9467bd',
+          brown : '#8c564b',
+          pink : '#e377c2',
+          gray : '#7f7f7f',
+          olive : '#bcbd22',
+          cyan : '#17becf',
+          white: '#F5F5F5'
+        },
         dropout:{
           light: '#E15759',
           dark: '#F44336'
