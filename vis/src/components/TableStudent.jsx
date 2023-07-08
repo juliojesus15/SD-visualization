@@ -1,24 +1,25 @@
 import { useContext, useState } from "react"
 
-import { StudentContext } from "../context/StudentContext"
+import { StudentContext } from "../context/StudentContext";
 import usePopupToggle from "../hooks/usePopupToggle";
 
 import { ColorPickerPopup } from "./ColorPickerPopup";
 import { ColorBox } from "./ColorBox";
 
+const defaultColors = [
+  { bg: "bg-tab-blue",   name: 'tab-blue',   available: true, busyFor: ""}, // blue
+  { bg: "bg-tab-orange", name: 'tab-orange', available: true, busyFor: ""}, // orange
+  { bg: "bg-tab-green",  name: 'tab-green',  available: true, busyFor: ""}, // green
+  { bg: "bg-tab-red",    name: 'tab-red',    available: true, busyFor: ""}, // red
+  { bg: "bg-tab-purple", name: 'tab-purple', available: true, busyFor: ""}, // purple
+  { bg: "bg-tab-brown",  name: 'tab-brown',  available: true, busyFor: ""}, // brown
+  { bg: "bg-tab-pink",   name: 'tab-pink',   available: true, busyFor: ""}, // pink
+  { bg: "bg-tab-gray",   name: 'tab-gray',   available: true, busyFor: ""}, // gray
+  { bg: "bg-tab-olive",  name: 'tab-olive',  available: true, busyFor: ""}, // olive
+  { bg: "bg-tab-cyan",   name: 'tab-cyan',   available: true, busyFor: ""}, // cyan
+]
+
 export const TableStudent = () => {
-  const defaultColors = [
-    { bg: "bg-tab-blue",   name: 'tab-blue',   available: true, busyFor: ""}, // blue
-    { bg: "bg-tab-orange", name: 'tab-orange', available: true, busyFor: ""}, // orange
-    { bg: "bg-tab-green",  name: 'tab-green',  available: true, busyFor: ""}, // green
-    { bg: "bg-tab-red",    name: 'tab-red',    available: true, busyFor: ""}, // red
-    { bg: "bg-tab-purple", name: 'tab-purple', available: true, busyFor: ""}, // purple
-    { bg: "bg-tab-brown",  name: 'tab-brown',  available: true, busyFor: ""}, // brown
-    { bg: "bg-tab-pink",   name: 'tab-pink',   available: true, busyFor: ""}, // pink
-    { bg: "bg-tab-gray",   name: 'tab-gray',   available: true, busyFor: ""}, // gray
-    { bg: "bg-tab-olive",  name: 'tab-olive',  available: true, busyFor: ""}, // olive
-    { bg: "bg-tab-cyan",   name: 'tab-cyan',   available: true, busyFor: ""}, // cyan
-  ]
 
   const { linkStudent } = useContext(StudentContext)
 

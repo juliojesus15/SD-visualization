@@ -1,44 +1,59 @@
-import { useState } from "react";
+import { useState,  } from "react";
 
 import { ColorBox } from "./ColorBox";
 
-const defaultSelectedColor = { 
-  colorName:"tab-white", 
-  color:"bg-tab-white" 
-};
 
-export const ColorPickerPopup = ({ addStudent, removeStudent, colors, updateColor, studentId, controllerOpenPopup, controllerClosePopup, isPopupOpen }) => {  
+export const ColorPickerPopup = ({ addStudent, removeStudent, colors, updateColor, studentId }) => {  
   
   const [ isOpen, setIsOpen ] = useState(false);    
-  const [ selectedColor, setSelectedColor ] = useState(defaultSelectedColor);
+
+  const [colorName, setColorName] = useState("tab-white");
+  const [color, setColor] = useState("bg-tab-white");
+
+
   
   const handleColorSelection = (color, colorName, available) => {  
-    if ( available ) {
-      setSelectedColor({ colorName, color });
+    console.log("*** Color: ", color, " colorName: ",colorName)
+    if ( available ) {      
+      //customColor['colorName'] = colorName
+      //customColor['color'] = color
+      //setCustomColor( (prev) => ({...prev, colorName:colorName, color:color }));
+      setColorName(colorName);
+      setColor(color);
+      /*setCustomColor((prevState) => {
+          console.log("2: ","a")
+          return {
+          ...prevState,
+          'colorName': colorName,
+          'color':color
+          }
+        }
+      );*/
       addStudent(studentId);
       updateColor(colorName, false, studentId);
-      controllerClosePopup();
+      //controllerClosePopup();
       setIsOpen(!isOpen);
     }
   };
   
   const handleClick = () => {    
-    const { colorName } = selectedColor;
     
     if (colorName !== "tab-white") {
       updateColor(colorName, true, "");
-      setSelectedColor(defaultSelectedColor);
+      setColorName(colorName);
+      setColor(color);
       removeStudent(studentId);
     } else {
-      if (!isPopupOpen) {
-        controllerOpenPopup();
+      if (isOpen==false) {
+        console.log("Abriendo popup ...")
+        //controllerOpenPopup();
         setIsOpen(!isOpen);
       }
     }          
   };
 
   return (
-    <div className="relative"> 
+    <div className="relative flex justify-center"> 
       {
         isOpen && ( 
           <div className="
@@ -65,7 +80,7 @@ export const ColorPickerPopup = ({ addStudent, removeStudent, colors, updateColo
       }
       <div 
         onClick={ handleClick } 
-        className={`border border-gray-400 shadow-md shadow-black/20 rounded-full w-4 h-4 hover:opacity-70 active:scale-95 cursor-pointer ${selectedColor.color} `}
+        className={`border border-gray-400 shadow-md shadow-black/20 rounded-full w-4 h-4 hover:opacity-70 active:scale-95 cursor-pointer ${color} `}
       >
       </div>
     </div>
