@@ -10,9 +10,9 @@ const useScaleColor = () => {
     'dropout_semester'
   ])
   .range([
-    'stroke-pass-light/70 dark:stroke-pass-light/60 cursor-pointer', 
-    'stroke-repeat-light/70 dark:stroke-repeat-light/60 cursor-pointer',
-    'stroke-dropout-light/70 dark:stroke-dropout-light/60 cursor-pointer'
+    'stroke-pass-light/50 dark:stroke-pass-light/60 cursor-pointer', 
+    'stroke-repeat-light/50 dark:stroke-repeat-light/60 cursor-pointer',
+    'stroke-dropout-light/50 dark:stroke-dropout-light/60 cursor-pointer'
   ]);
 
   return colorScale;

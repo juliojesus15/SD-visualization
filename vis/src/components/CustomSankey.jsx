@@ -118,9 +118,10 @@ export const CustomSankey = () => {
       .append("path")
       .attr('d', d3Sankey.sankeyLinkHorizontal() )
       .attr("stroke-width", (d) => d.width )
-      .attr("fill", "none")
-      .attr("class", d => colorScale(d.status) )   
+      .attr("fill", "none")      
+      .attr("class", d => colorScale(d.status) )          
       .on("click", d => setLinkStudent(d.students))  
+
   }
 
   return (
