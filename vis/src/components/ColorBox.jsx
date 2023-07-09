@@ -1,9 +1,7 @@
-import { useState } from "react";
-
 export const ColorBox = ({ color }) => {
   return (
     <div className={`
-      w-6 h-6 
+      w-6 h-6
       border-2 border-gray-300
       shadow-md shadow-black/50 
       rounded-full 

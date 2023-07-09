@@ -44,8 +44,8 @@ export const StudentProvider = ({ children }) => {
   }
 
   const data = { 
-    nodes, 
-    links, 
+    nodes, setNodes,
+    links, setLinks,
     semesters, 
     semesterFrom, updateSemesterFrom, 
     semesterTo, updateSemesterTo, 

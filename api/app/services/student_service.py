@@ -4,34 +4,37 @@ class StudentService:
   def __init__(self, student_repository):
     self.student_repository = student_repository
 
-  def get_roadmap(self, student_id, semester_from, semester_to):
+  def get_roadmap(self, student_id, semester_from, semester_to, color):
     try:
+      
       message, roadmap = self.student_repository.get_roadmap(semester_from)  
-      #roadmap = self.student_repository.get_roadmap(semester_from, semester_to)
-      #if nodes is None:
-      #  raise Exception('No se encontraron nodos para el periodo especificado')
-
       student_roadmap = roadmap[student_id]
-      student_roadmap[0] = { **student_roadmap[0], "roadmap": "ES"  }
+      
+      general_range = get_semesters_within_range(semester_from, semester_to)
+      student_range = get_semesters_within_range(semester_from, student_roadmap[len(student_roadmap) - 1]['timelapse'])
+
+
+      min_num_semesters = min(len(student_range), len(general_range))
 
       container_links = []
-      for index in range(0, len(student_roadmap)-1):
-        source = student_roadmap[ index ]['roadmap'] + '-' + student_roadmap[ index ]['time']
-        target = student_roadmap[ index+1 ]['roadmap'] + '-' + student_roadmap[ index+1 ]['time']
+      for index in range(min_num_semesters - 1):        
+        source = student_roadmap[ index ]['semester']  + "-" + student_roadmap[ index ]['timelapse'] 
+        target = student_roadmap[ index + 1 ]['semester']  + "-" + student_roadmap[ index + 1 ]['timelapse']
         container_links.append({
           "source": source,
-          "status": "student",
+          "status": color,
           "students": [],
           "target": target,
-          "value": 10
+          "value": 20
         })
 
       container_nodes = [ {
         "name": "ES",
-        "nodeId": "ES-2010-01",
-      } ]
-
-      #return semesters[student_id]
+        "nodeId": "ES-" + semester_from,
+        "status": "student",
+        "vertical_order": 30
+      }]
+            
       return container_nodes, container_links
     except Exception as e:
       raise Exception('Error en el servicio de estudiantes: ' + str(e))

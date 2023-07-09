@@ -24,7 +24,7 @@ export const CustomPointCloud = () => {
 
       try {
         const response = await getPointCloudData();
-        console.log("***", response);
+        //console.log("***", response);
         setPoints(response.data.points);
         setTypes(response.data.especies)
       } catch (error) {

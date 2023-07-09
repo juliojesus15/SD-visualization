@@ -1,8 +1,5 @@
 from flask import Flask
 
-from controllers.roadmap_controller import RoadmapController
-from controllers.test_controller import TestController
-
 from domain.repositories.node_repository import NodeRepository
 from domain.repositories.link_repository import LinkRepository
 from domain.repositories.student_repository import StudentRepository
@@ -14,8 +11,6 @@ from services.student_service import StudentService
 from controllers.sankey_controller import SankeyController
 from controllers.pcloud_controller import PCloudController
 from controllers.student_controller import StudentController
-
-
 
 app = Flask(__name__)
 
@@ -36,13 +31,6 @@ student_controller = StudentController(student_service)
 app.register_blueprint(sankey_controller.blueprint)
 app.register_blueprint(pcloud_controller.blueprint)
 app.register_blueprint(student_controller.blueprint)
-
-
-roadmap_controller = RoadmapController()
-test_controller = TestController()
-
-app.register_blueprint(roadmap_controller.blueprint)
-app.register_blueprint(test_controller.blueprint)
 
 if __name__ == '__main__':
 	app.run(debug=True)
