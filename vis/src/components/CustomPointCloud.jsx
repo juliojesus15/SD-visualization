@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { getPointCloudData } from '../services/pcloudService';
 
 import { StudentContext } from '../context/StudentContext';
-import { Spinner } from './Spinner';
+import { Spinner } from './icons/Spinner';
 
 
 

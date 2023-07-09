@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { StudentContext } from "../context/StudentContext";
 
 import { SelectSemester } from "./SelectSemester";
-import { ThemeButton } from "./ThemeButton";
+import { ThemeButton } from "./icons/ThemeButton";
 
 import { times } from "../constant/filter";
 

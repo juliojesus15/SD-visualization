@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useSpring, animated } from "@react-spring/web";
 
-import { ThemeContext } from "../context/ThemeContext";
+import { ThemeContext } from "../../context/ThemeContext";
 
 export const ThemeButton = () => {
   const { colorTheme, setTheme } = useContext(ThemeContext)
