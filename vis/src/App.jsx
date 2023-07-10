@@ -1,4 +1,3 @@
-import { FilterProvider } from "./context/FilterProvider";
 import { ThemeProvider } from "./context/ThemeProvider";
 import { StudentProvider } from "./context/StudentProvider";
 
@@ -8,9 +7,7 @@ function App() {
   return (    
     <ThemeProvider>
       <StudentProvider>
-        <FilterProvider>      
-          <Dashboard />      
-        </FilterProvider>
+        <Dashboard />      
       </StudentProvider>
     </ThemeProvider>
   )

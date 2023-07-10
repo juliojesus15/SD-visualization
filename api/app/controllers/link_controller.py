@@ -19,5 +19,6 @@ class LinkController:
 		
 		except Exception as e:
 			error_message = str(e)
+			print(error_message)
 			return jsonify({ 'status': False, 'links': None }), 500
 

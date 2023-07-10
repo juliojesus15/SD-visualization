@@ -15,8 +15,7 @@ class StudentController:
       color =  request.args.get('color')             
       a, b = self.student_service.get_roadmap(student_id, semester_from, semester_to, color)
       return jsonify({'status': True, 'nodes': a, 'links': b }), 200
-      
-    
+          
     except Exception as e:
       error_message = str(e)
       print(error_message)

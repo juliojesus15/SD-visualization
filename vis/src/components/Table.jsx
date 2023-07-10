@@ -34,7 +34,7 @@ export const Table = () => {
   const pageSize = 9;
   
   useMemo(() => {
-    const updatedData = linkStudent
+    const updatedData = linkStudent && linkStudent
                           .map( student => ( { ...student, "color": "bg-tab-white" } ) )
                           .sort( (a, b) => {
                               if (a.lastname < b.lastname) return -1;
@@ -47,7 +47,7 @@ export const Table = () => {
                             }
                           );
     setData(updatedData);
-  }, [linkStudent]);
+  }, [ linkStudent ]);
 
   // busca el color (nameColor) y procede a cambiar su disponibilidad
   const updateColor = useCallback((nameColor, statusColor, studentId) => {
@@ -164,7 +164,7 @@ export const Table = () => {
 
   useEffect(() => {
     if (pageIndex !== currentPage) gotoPage(currentPage);
-  }, [pageIndex, currentPage, gotoPage]);
+  }, [ pageIndex, currentPage, gotoPage ]);
 
   return (
     <div className="relative h-full font-roboto text-xs text-gray-700 dark:text-gray-300">

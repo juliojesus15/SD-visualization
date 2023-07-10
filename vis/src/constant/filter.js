@@ -21,18 +21,3 @@ export const times = [
   { id: 19, name: '2019-02' },
   { id: 20, name: '2020-01' },  
 ]
-
-export const genders = [
-  'Todos',
-  'Masculino',
-  'Femenino'
-]
-
-export const programs = [
-  'Todos',
-  'Computer Science',
-  'Ing. Industrial',
-  'Ing. Civil'
-]
-
-

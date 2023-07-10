@@ -17,4 +17,5 @@ class SemesterController:
 		
 		except Exception as e:
 			error_message = str(e)
+			print(error_message)
 			return jsonify({'status': False, 'nodes': None}), 500

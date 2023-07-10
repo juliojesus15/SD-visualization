@@ -9,11 +9,10 @@ class PCloudController:
 
   def get_data(self):
     try:							
-      points, especies = self.pcloud_service.get_data()     
-      #print("*** ", points) 
-      #return jsonify(points.tolist())
+      points, especies = self.pcloud_service.get_data()           
       return jsonify({'status': True, 'points': points.tolist(), 'especies': especies }), 200
     
     except Exception as e:
       error_message = str(e)
+      print(error_message)
       return jsonify({'status': False }), 500
