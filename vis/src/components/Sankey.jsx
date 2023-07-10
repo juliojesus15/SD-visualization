@@ -482,7 +482,6 @@ export const Sankey = () => {
     .attr("stroke-width", (d) => d.width )      
     .on("click", d => setStudents(d.students))
   }
-
  
 
   return ( 

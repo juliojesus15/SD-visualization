@@ -26,17 +26,55 @@ export const CustomSankey = () => {
   const drawChart = (nodes, links, semesters) => {
     const margin = { x: 5, y: 25 };
 
-    //const width = sankeyDiagramRef.current.clientWidth   
-    //const height = sankeyDiagramRef.current.clientHeight 
-    const width = sankeyDiagramRef.current.clientWidth - 25
+    
+    const clientWidth = sankeyDiagramRef.current.clientWidth * 0.98
+    const width = semesters.length < 11 ? clientWidth : (clientWidth + (200 * (semesters.length - 11)))
+    const pagginInner = 1 - (  (0.05 * semesters.length) ) 
     const height = 250
     const NODEWIDTH = 25
     const NODEPADDING = 10
 
+    /*
     const xScale = d3.scaleBand()
       .domain(d3.range(semesters.length))
       .range([0, width])
       .padding(0.1); // Ajusta el valor de padding según lo que se necesite
+
+      const nodeNames = nodes.map((d) => d.name);
+      const numNodes = nodeNames.length;
+
+      const totalPadding = availableWidth - (numNodes * NODEWIDTH);
+      const paddingBetweenNodes = totalPadding / (numNodes - 1);
+
+      const xScale = d3
+        .scaleBand()
+        .domain(nodeNames)
+        .range([0, availableWidth])
+        .paddingInner(0)
+        .paddingOuter(paddingBetweenNodes / (NODEWIDTH + paddingBetweenNodes))
+        .align(0);
+    */
+
+    const numUnits = semesters.length;
+    console.log("🚀 ~ file: CustomSankey.jsx:58 ~ drawChart ~ numUnits:", numUnits)
+
+    const unitWidth = (width / (numUnits-1)) - 400; // Ancho de cada unidad
+    console.log("🚀 ~ file: CustomSankey.jsx:61 ~ drawChart ~ width:", width)
+    console.log("🚀 ~ file: CustomSankey.jsx:61 ~ drawChart ~ unitWidth:", unitWidth)
+
+    const xScale = d3
+      .scaleBand()
+      .domain(d3.range(numUnits))
+      .range([ 0, width ])
+      .paddingInner(pagginInner)
+      .paddingOuter(0)
+      .align(0.5)
+      .round(true)
+    
+    console.log("🚀 ~ file: CustomSankey.jsx:70 ~ drawChart ~ xScale 0 :", xScale(0))
+    console.log("🚀 ~ file: CustomSankey.jsx:70 ~ drawChart ~ xScale 1:", xScale(1))
+    console.log("🚀 ~ file: CustomSankey.jsx:70 ~ drawChart ~ xScale 2:", xScale(2))    
+          
 
     // Recalculando las coordenadas de los links, despues de aplicar xScale en los nodos
     const customSankeyLinkHorizontal = d3Sankey.sankeyLinkHorizontal()
@@ -143,7 +181,7 @@ export const CustomSankey = () => {
       .attr("class", d => colorScale(d.status))
       .on("click", (clicked, data) => setLinkStudent(data.students) )  
 
-  }
+  }  
 
   return (
     <div className="h-[calc(100%-3.5rem)] overflow-auto">
