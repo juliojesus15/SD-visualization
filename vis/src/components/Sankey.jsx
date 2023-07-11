@@ -260,11 +260,11 @@ export const Sankey = () => {
   
 
   const contextMenu = d3.select(contextMenuRef.current)
-      .append("div")
-      .attr("class", "context-menu")
-      .style("display", "none");
+    .append("div")
+    .attr("class", `context-menu `)
+    .style("display", "none");
 
-    contextMenu.append("div")
+    contextMenu.append("div")      
       .text("Unir")
       .on("click", joinNodes );
 
