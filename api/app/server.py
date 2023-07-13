@@ -3,6 +3,7 @@ from flask import Flask
 from domain.repositories.node_repository import NodeRepository
 from domain.repositories.link_repository import LinkRepository
 from domain.repositories.student_repository import StudentRepository
+from domain.repositories.pcloud_repository import PCloudRepository
 
 from services.sankey_service import SankeyService
 from services.pcloud_service import PCloudService
@@ -16,11 +17,12 @@ app = Flask(__name__)
 
 node_repository = NodeRepository()
 link_repository = LinkRepository()
+pcloud_repository = PCloudRepository()
 
 sankey_service = SankeyService(node_repository, link_repository)
 sankey_controller = SankeyController(sankey_service)
 
-pcloud_service = PCloudService()
+pcloud_service = PCloudService(pcloud_repository, node_repository)
 pcloud_controller = PCloudController(pcloud_service)
 
 student_repository = StudentRepository()

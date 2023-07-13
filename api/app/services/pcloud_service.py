@@ -1,43 +1,30 @@
 import umap
-import numpy as np
-import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 import os
 
 class PCloudService:
+  def __init__(self, pcloud_repository, node_repository):
+    self.pcloud_repository = pcloud_repository
+    self.node_repository = node_repository
           
-  def get_data(self):
-    try:
-      current_dir = os.path.abspath(os.path.dirname(__file__))
-      path = os.path.join(current_dir, f"penguins.csv")
+  def get_data(self, period, semester, enrollment):
+    try:      
+      model = self.pcloud_repository.get_data("50_0_1_euclidean")
 
-      penguins = pd.read_csv(path)
-      penguins = penguins.dropna()
-      penguins.species.value_counts()
-
-      #print("=========================== ", penguins.species.value_counts() )
-
-      penguin_data = penguins[
-        [
-            "bill_length_mm",
-            "bill_depth_mm",
-            "flipper_length_mm",
-            "body_mass_g",
-        ]
-      ].values
+      message, nodes = self.node_repository.get_nodes(period)
+      key = semester + "-" + period
+      node = next((node for node in nodes if node["nodeId"] == key), None)
+      students = node['student']
       
-      scaled_penguin_data = StandardScaler().fit_transform(penguin_data)
-      model = umap.UMAP() 
+      grades = [student["grades"] for student in students.values() if student.get("enrollment") == enrollment]
+      dropout = [student["dropout"] for student in students.values() if student.get("enrollment") == enrollment]
+      list_student = [(student["name"] + " " + student["lastname"]) for student in students.values() if student.get("enrollment") == enrollment]
 
-      fit = model.fit_transform(scaled_penguin_data)
-      
-      c=[x for x in penguins.species.map({"Adelie":0, "Chinstrap":1, "Gentoo":2})]
-      """
-      """
+      scaled_data = StandardScaler().fit_transform(grades)
+      embedding = model.transform(scaled_data)
    
-
-      return fit, c
+      return embedding, dropout, list_student
     except Exception as e:
       error_message = str(e)
-      print ("HHAAA: ", error_message)
+      print ("Error: ", error_message)

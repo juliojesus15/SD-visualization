@@ -1,9 +1,21 @@
 import os
 import json
+import pickle
 
 class BaseRepository:
   def __init__(self, data_dir):
     self.data_dir = data_dir
+
+  def load_model(self, filename):
+    try:
+      path = os.path.join(self.data_dir, f"{filename}.pkl")
+      with open(path, 'rb') as file:
+        umap_pre_trained = pickle.load(file)      
+      message = "Modelo cargado"
+      return message, umap_pre_trained
+    except FileNotFoundError:
+      message = "El archivo para cargar el modelo no se encontró"
+      raise Exception(message)
 
   def load_data(self, filename):
     try:

@@ -1,14 +1,25 @@
-import { useEffect, useContext, useRef } from "react";
-import * as d3 from "d3"
-import * as d3Sankey from "d3-sankey";
+import { useEffect, useContext, useRef, useState } from "react";
 
-import useColorScale from "../hooks/useColorScale";
+import * as d3 from "d3";
+import * as d3Sankey from "d3-sankey";
 
 import { StudentContext } from "../context/StudentContext";
 
+import useColorScale from "../hooks/useColorScale";
+
+import { getPointCloudData } from "../services/pcloudService";
+
+const selectNodeDefault = { period: "", semester: "" }
+
 export const CustomSankey = () => {
-  const { nodes, links, semesters, setLinkStudent, setPCloudNode } = useContext(StudentContext);
+  const { 
+    nodes, links, semesters, // Sankey
+    setLinkStudent, 
+    semesterFrom, 
+    setPoints, setLabels, setStudentToPCloud, setIsLoadingPCloud // PCloud
+  } = useContext(StudentContext);  
   
+  const [ selectedNode, setSelectedNode ] = useState(selectNodeDefault);
   const colorScale = useColorScale();
 
   const sankeyDiagramRef = useRef(null);
@@ -17,13 +28,42 @@ export const CustomSankey = () => {
   useEffect( () => {
     try {        
       if (nodes && links && semesters ) {
-        drawChart(nodes, links, semesters)
+        drawChart(nodes, links, semesters);
       }
     }
     catch (e) {
       console.error("Error in CustomSankey", e)
     } 
-  }, [ links, nodes, semesters ])
+  }, [ links, nodes, semesters, selectedNode ])
+
+
+  const getPCloudPoints = () => {
+    const { period, semester } = selectedNode;
+    const enrollment = semesterFrom;    
+
+    console.log("getPCloudPoints -- Period: ", period, " semester: ", semester, " enrollment: ", enrollment )
+   
+    
+    if (enrollment.length>0 && period.length>0 && semester.length>0) {
+      console.log("EJECUTAR QUERY")
+      setIsLoadingPCloud(true); 
+      getPointCloudData(period, semester, enrollment)
+        .then((response) => {          
+          setPoints(response.data.points);
+          setLabels(response.data.class);
+          setStudentToPCloud(response.data.students);
+          setIsLoadingPCloud(false); 
+        })
+        .catch((error) => {
+          console.error("Getting data ", error);          
+          setIsLoadingPCloud(false); 
+        })
+        .finally(() => {
+          setIsLoadingPCloud(false); // Ocultar estado de carga
+        });              
+    }           
+    
+  }
 
   const drawChart = (nodes, links, semesters) => {
     const margin = { left: 15, bottom: 35, x: 5, y: 25 };
@@ -84,9 +124,7 @@ export const CustomSankey = () => {
     contextMenu.append("div")
       .text("Proyectar")
       .attr("class", "context_menu_child")
-      .on("click", () => {
-        console.log("Separar opción seleccionada");
-      });
+      .on("click", getPCloudPoints );
 
     const svg = d3.select(sankeyDiagramRef.current)
       .append("svg")
@@ -117,7 +155,7 @@ export const CustomSankey = () => {
       .nodePadding(NODEPADDING)
       .nodeAlign(d3Sankey.sankeyLeft)      
       .size([ width - 20, height - margin.bottom ])
-      .nodeSort(function(a, b) { return d3.ascending(a.vertical_order, b.vertical_order) })
+      .nodeSort( (a, b) => { return d3.ascending(a.vertical_order, b.vertical_order) })
       
     sankeyLayout({ "nodes": nodes, "links": links });
     
@@ -162,10 +200,31 @@ export const CustomSankey = () => {
       .attr("height", (d) => (d.y1 - d.y0)) 
       .attr("width", sankeyLayout.nodeWidth())
       .attr("class", "cursor-pointer fill-gray-600 dark:fill-gray-700 stroke-gray-300 dark:stroke-gray-300 shadow-box dark:shadow-box-none") // tailwind      
-      .style("stroke-width", 2)
-      .on("click", d => setPCloudNode(d.nodeId))
-      
+      .style("stroke-width", 2)      
+      .on("click", (event, d)=>  {       
 
+        if (event.altKey) {                              
+          console.log("===> ", d);
+          d3.select(event.target)          
+            .classed("stroke-gray-300 dark:stroke-gray-300", false)
+            .classed("stroke-lime-500 dark:stroke-lime-400", true)
+            .style("stroke-width", 4)
+
+          setSelectedNode({            
+            period: d.nodeId.slice(-7),
+            semester: d.nodeId.substring(0, d.nodeId.indexOf('-'))
+          })
+
+        } else {            
+          d3.select(event.target)
+            .classed("stroke-lime-500 dark:stroke-lime-400", false)
+            .classed("stroke-gray-300 dark:stroke-gray-300", true)
+            .style("stroke-width", 2)
+
+          setSelectedNode(selectNodeDefault)
+        }
+      })
+        
     // Por terminar, hover sobre el rectangulo
     groupNodes
       .append("title")
@@ -188,8 +247,8 @@ export const CustomSankey = () => {
       .data(links)
       .enter()
       .append("path")
-      //.attr('d', d3Sankey.sankeyLinkHorizontal() )
-      .attr('d', customSankeyLinkHorizontal )
+      //.attr("d", d3Sankey.sankeyLinkHorizontal() )
+      .attr("d", customSankeyLinkHorizontal )
       .attr("stroke-width", (d) => d.width )
       .attr("fill", "none")      
       .attr("class", d => colorScale(d.status))

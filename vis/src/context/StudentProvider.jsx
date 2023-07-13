@@ -4,16 +4,28 @@ import { StudentContext } from "./StudentContext";
 import { getData } from "../services/sourceService";
 
 export const StudentProvider = ({ children }) => {  
+
+  // filtros
   const [ semesterFrom, setSemesterFrom ] = useState("2010-01");
   const [ semesterTo, setSemesterTo ] = useState("2011-01");
 
+  // Sankey
   const [ nodes, setNodes ] = useState([]);
   const [ links, setLinks ] = useState([]);
   const [ semesters, setSemesters ] = useState([]);
   
+  // Tabla
   const [ linkStudent, setLinkStudent ] = useState([])
   
-  const [ PCloudNode, setPCloudNode ] = useState("")
+  // pcloud
+  const [ points, setPoints ] = useState(null);
+  const [ labels, setLabels ] = useState(null);
+  const [ studentsToPCloud, setStudentToPCloud ] = useState(null);
+  const [ isLoadingPCloud, setIsLoadingPCloud ] = useState(false);
+
+  // temporal
+  const [ temporal, setTemporal ] = useState(null);
+
 
   const [ errorData, setErrorData ] = useState("");
     
@@ -50,8 +62,12 @@ export const StudentProvider = ({ children }) => {
     semesterFrom, updateSemesterFrom, 
     semesterTo, updateSemesterTo, 
     linkStudent, setLinkStudent,
-    PCloudNode, setPCloudNode,
     errorData, 
+    points, setPoints,
+    labels, setLabels,
+    studentsToPCloud, setStudentToPCloud,
+    isLoadingPCloud, setIsLoadingPCloud,
+    temporal, setTemporal
   }
   
   return (

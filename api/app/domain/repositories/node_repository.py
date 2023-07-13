@@ -6,9 +6,9 @@ class NodeRepository(BaseRepository):
     super().__init__(data_dir)
   
   def get_nodes(self, year):
-    try:    
-      nodes = self.load_data(year)
-      return nodes
+    try:          
+      message, nodes = self.load_data(year)
+      return message, nodes
     except FileNotFoundError:
       raise Exception('Archivo de nodos no encontrado')
   

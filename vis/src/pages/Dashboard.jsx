@@ -1,14 +1,14 @@
-//import { useContext } from "react";
+import { useContext } from "react";
 
 import { ControllerBar  } from "../components/ControllerBar";
 import { CustomSankey } from "../components/CustomSankey";
 import { Table } from "../components/Table";
 import { CustomPointCloud } from "../components/CustomPointCloud";
 
-//import { StudentContext  } from "../context/StudentContext";
+import { StudentContext  } from "../context/StudentContext";
 
 export const Dashboard = () => {
-  //const { linkStudent } = useContext(StudentContext)
+  const { temporal } = useContext(StudentContext)
   return (
     <div className="lg:w-screen lg:h-screen flex flex-col gap-2 lg:gap-1.5 p-2  bg-gray-200 dark:bg-dark-200" >
       <section className="
@@ -39,8 +39,8 @@ export const Dashboard = () => {
           <CustomPointCloud />
         </div>
         <div className="w-full lg:w-1/3"> 
-        {/*
-          JSON.stringify(linkStudent)*/
+        {
+         temporal&&  JSON.stringify(temporal.length)
         }
         </div>
 
